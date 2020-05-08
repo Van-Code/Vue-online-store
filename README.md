@@ -1,5 +1,4 @@
 # Vue online store
-Created a little online store, complete with product list, add to cart, create account, sign in, ability to add multiple shipping addresses and to choose a default. More features to come. 
 
 ## Project setup
 ```
