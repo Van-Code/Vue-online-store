@@ -1,0 +1,34 @@
+{
+    "name": "any name",
+    "address": "111 Main St.",
+    "city": "Springfield",
+    "state": "IL",
+    "zip": "11111",
+    "country": "United States",
+    "shipping": [
+        {
+            "name": "Peggy Sue",
+            "address": "111 Main St",
+            "city": "Springfield",
+            "state": "IL",
+            "zip": "11111",
+            "country": "United States",
+            "default": true
+        },
+        {
+            "name": "dfs",
+            "address": "sfd",
+            "city": "fd",
+            "state": "fdsa",
+            "zip": "dfsa",
+            "country": "fs"
+        }
+    ],
+    "cards": [
+        {
+            "type": "Master Card",
+            "number": "42424242424242",
+            "exp": "12/19"
+        }
+    ]
+}
