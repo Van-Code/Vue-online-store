@@ -1,5 +1,5 @@
 <template>
-  <div class="checkout col-12">
+  <div class="checkout container">
     <h2>Double check your order details</h2>
     <v-row>
       <v-col cols="3">
@@ -34,6 +34,12 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="12">
+        <hr />
+        <app-cart :products="products"></app-cart>
+      </v-col>
+    </v-row>
     <shipping-list
       v-if="showAddresses"
       :openDialog="showAddresses"
@@ -46,13 +52,12 @@ import AppCart from "@/views/Cart";
 import ShippingList from "@/views/ShippingList";
 export default {
   props: { products: { type: Array, default: Array, required: true } },
-  components: { AppCart },
+  components: { AppCart, ShippingList },
   data() {
     return {
       showAddresses: false
     };
   },
-  components: { ShippingList },
   computed: {
     user: function() {
       return this.$store.state.user;

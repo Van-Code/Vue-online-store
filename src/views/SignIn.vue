@@ -1,12 +1,20 @@
 <template>
   <div class="signin">
     <v-container>
-      <v-text-field v-model="model" label="Name"></v-text-field>
-      <v-btn @click="getUser">Continue</v-btn>
-      <div>
-        Not you?
-        <v-btn to="/register" text>Create Account</v-btn>
-      </div>
+      <v-row>
+        <v-col cols="6">
+          <v-text-field v-model="model" label="Name"></v-text-field>
+          <v-btn @click="getUser">Continue</v-btn>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <div>
+            Not you?
+            <v-btn to="/register" text>Create Account</v-btn>
+          </div>
+        </v-col>
+      </v-row>
     </v-container>
   </div>
 </template>

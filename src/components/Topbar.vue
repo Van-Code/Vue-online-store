@@ -16,17 +16,18 @@
         <div>Hello{{userName}}</div>
         <v-btn text to="/signin" v-if="!isLoggedIn">Sign In</v-btn>
         <v-btn text v-else @click="signOut">Sign Out</v-btn>
-        <v-badge color="pink" :content="cartBadge" :value="cartBadge>0">
-          <v-btn
-            :to="{path:'/cart', query:{'redirectPath':'checkout'}}"
-            text
-            icon
-            large
-            color="primary"
-          >
+
+        <v-btn
+          :to="{path:'/cart', query:{'redirectPath':'checkout'}}"
+          text
+          icon
+          large
+          color="primary"
+        >
+          <v-badge color="pink" :content="cartBadge" :value="cartBadge>0">
             <v-icon class="right">mdi-cart</v-icon>
-          </v-btn>
-        </v-badge>
+          </v-badge>
+        </v-btn>
       </div>
     </div>
   </div>

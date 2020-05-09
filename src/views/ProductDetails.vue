@@ -19,12 +19,12 @@
             </v-card-text>
             <v-card-actions>
               <!-- <v-btn color="orange" text>Share</v-btn> -->
-              <div class="col-2 text-right">Qty:</div>
+
               <v-select
                 :items="quantityDDL"
-                label="1"
                 :v-model="quantityModel"
-                class="col-1"
+                placeholder="Qty: 1"
+                class="col-2 pb-0"
                 @change="updateQty"
               ></v-select>
 
