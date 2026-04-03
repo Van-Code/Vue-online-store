@@ -11,7 +11,7 @@
       <v-card-text>
         <v-text-field label="Full Name" single-line v-model="name"></v-text-field>
         <v-text-field label="Street Address" single-line v-model="address"></v-text-field>
-        <v-text-field label="Zip code" single-line v-model="zip"></v-text-field>
+        <v-text-field label="Zip Code" single-line v-model="zip"></v-text-field>
         <v-text-field label="City" single-line v-model="city"></v-text-field>
         <v-text-field label="State" single-line v-model="state"></v-text-field>
       </v-card-text>
@@ -22,13 +22,14 @@
     </v-card>
   </div>
 </template>
+
 <script>
 export default {
-  props: { addresses: Array, required: false, default: false },
+  props: {
+    addresses: { type: Array, default: () => [] }
+  },
   data() {
-    //add your own validation
     return {
-      addAddress: false,
       name: "",
       address: "",
       zip: "",
@@ -37,14 +38,9 @@ export default {
     };
   },
   methods: {
-    saveAddress: function() {
-      let obj = new Object();
-      ["name", "address", "zip", "city", "state"].forEach(prop => {
-        obj[prop] = this[prop];
-      });
-      this.addresses.push(obj);
-      this.$store.commit("updateAddressList", this.addresses);
-      this.$emit("close");
+    saveAddress() {
+      const newAddress = { name: this.name, address: this.address, zip: this.zip, city: this.city, state: this.state };
+      this.$emit("add", newAddress);
     }
   }
 };

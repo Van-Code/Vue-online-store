@@ -8,13 +8,17 @@
       </v-btn>
     </v-toolbar>
     <v-card v-if="!createNewAddress">
-      <v-card-text v-for="(addy,i) in addresses" :key="i" class="d-flex row">
+      <v-card-text
+        v-for="(addy, i) in addresses"
+        :key="i"
+        class="d-flex row"
+      >
         <div class="col-7">
-          <div>{{addy.name}}</div>
-          <div>{{addy.address}}</div>
-          <div>{{addy.city}}</div>
-          <div>{{addy.state}}</div>
-          <div>{{addy.zip}}</div>
+          <div>{{ addy.name }}</div>
+          <div>{{ addy.address }}</div>
+          <div>{{ addy.city }}</div>
+          <div>{{ addy.state }}</div>
+          <div>{{ addy.zip }}</div>
         </div>
         <div class="col-5 row">
           <v-btn class="col-12" @click="selectAddress(i)">Use this Address</v-btn>
@@ -27,30 +31,33 @@
             </v-col>
           </v-row>
         </div>
-        <div v-if="deleteNum===i" class="col-12 text-center confirm">
+        <div v-if="deleteNum === i" class="col-12 text-center confirm">
           <v-card elevation="0">
             <v-card-title>Delete this address?</v-card-title>
             <div>
-              <v-btn @click.prevent="deleteNum=false">No</v-btn>
+              <v-btn @click.prevent="deleteNum = false">No</v-btn>
               <v-btn @click.prevent="deleteAddress(addy)" color="black white--text">Delete</v-btn>
             </div>
           </v-card>
         </div>
       </v-card-text>
-      <v-btn text link small @click="createNewAddress=true">+ Add an Address</v-btn>
+      <v-btn text link small @click="createNewAddress = true">+ Add an Address</v-btn>
     </v-card>
 
     <shipping-add
       :addresses="addresses"
       v-if="createNewAddress"
-      v-on:close="createNewAddress=false"
+      v-on:close="createNewAddress = false"
+      v-on:add="onAddAddress"
     ></shipping-add>
   </v-dialog>
 </template>
+
 <script>
 import ShippingAdd from "@/views/ShippingAdd";
+
 export default {
-  props: { openDialog: Boolean, required: false, default: false },
+  props: { openDialog: { type: Boolean, default: false } },
   data() {
     return {
       showAddresses: this.openDialog,
@@ -60,29 +67,32 @@ export default {
   },
   components: { ShippingAdd },
   computed: {
-    addresses: function() {
-      return this.$store.state.user.shipping.length > 0
-        ? this.$store.state.user.shipping
-        : [];
+    addresses() {
+      return this.$store.state.user.shipping;
     }
   },
   methods: {
-    selectAddress: function(i) {
-      this.$store.state.user.shipping.map(x => (x.default = false));
-      this.$store.state.user.shipping[i].default = true;
+    selectAddress(i) {
+      this.$store.commit("setDefaultAddress", i);
       this.$emit("close");
     },
-    askConfirmDel: function(i) {
+    askConfirmDel(i) {
       this.deleteNum = i;
     },
-    deleteAddress: function(model) {
-      const filteredItems = this.addresses.filter(item => item !== model);
-      this.$store.commit("updateAddressList", filteredItems);
+    deleteAddress(model) {
+      const filtered = this.addresses.filter(item => item !== model);
+      this.$store.commit("updateAddressList", filtered);
       this.deleteNum = false;
+    },
+    onAddAddress(newAddress) {
+      const updated = [...this.addresses, newAddress];
+      this.$store.commit("updateAddressList", updated);
+      this.createNewAddress = false;
     }
   }
 };
 </script>
+
 <style lang="sass" scoped>
 .confirm
   opacity: 0.8

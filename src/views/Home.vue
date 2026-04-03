@@ -12,11 +12,14 @@
 
 <script>
 import ProductItem from "../components/ProductItem";
+
 export default {
   name: "Home",
-  props: { products: { type: Array, default: Array, required: true } },
-  components: {
-    ProductItem
+  components: { ProductItem },
+  computed: {
+    products() {
+      return this.$store.state.products;
+    }
   }
 };
 </script>
