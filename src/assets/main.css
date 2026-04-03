@@ -1,0 +1,70 @@
+/* ─── Base reset & typography ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #app {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f9fafb;
+  color: #111827;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Typography scale ─── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+/* ─── Vuetify overrides ─── */
+.v-application {
+  font-family: 'Inter', sans-serif !important;
+}
+
+.v-card__title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1rem !important;
+  line-height: 1.4 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.v-card__subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem !important;
+}
+
+/* ─── Link reset ─── */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ─── Consistent page max-width ─── */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+/* ─── Page section heading ─── */
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #111827;
+  margin-bottom: 24px;
+}
+
+/* ─── Divider spacing ─── */
+.section-divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 24px 0;
+}

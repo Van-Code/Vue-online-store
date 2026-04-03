@@ -1,29 +1,43 @@
 <template>
-  <div class="topbar container">
-    <div class="flex row align-center">
-      <v-btn class="d-flex col-1 align-center" to="/" fixed text icon color="blue lighten-2">
-        <v-icon large>mdi-home</v-icon>
-      </v-btn>
-      <router-link to="/" class="d-flex col-2 offset-md-5">
-        <h3>Van-Code Store</h3>
-      </router-link>
-      <div class="d-flex justify-end col-3 offset-md-2 justify-space-between align-center">
-        <div>Hello{{ userName }}</div>
-        <v-btn text to="/signin" v-if="!isLoggedIn">Sign In</v-btn>
-        <v-btn text v-else @click="signOut">Sign Out</v-btn>
-        <v-btn
-          :to="{ path: '/cart', query: { redirectPath: 'checkout' } }"
-          text
-          icon
-          large
-          color="primary"
+  <div class="topbar">
+    <router-link to="/" class="topbar__brand">
+      Van-Code Store
+    </router-link>
+
+    <nav class="topbar__nav">
+      <span v-if="isLoggedIn" class="topbar__greeting">Hello, {{ displayName }}</span>
+
+      <v-btn
+        v-if="!isLoggedIn"
+        to="/signin"
+        text
+        class="topbar__nav-btn"
+      >Sign In</v-btn>
+
+      <v-btn
+        v-else
+        text
+        class="topbar__nav-btn"
+        @click="signOut"
+      >Sign Out</v-btn>
+
+      <v-btn
+        :to="{ path: '/cart' }"
+        icon
+        large
+        class="topbar__cart-btn"
+        aria-label="Shopping cart"
+      >
+        <v-badge
+          color="accent"
+          :content="cartBadge"
+          :value="cartBadge > 0"
+          overlap
         >
-          <v-badge color="pink" :content="cartBadge" :value="cartBadge > 0">
-            <v-icon>mdi-cart</v-icon>
-          </v-badge>
-        </v-btn>
-      </div>
-    </div>
+          <v-icon color="primary">mdi-cart-outline</v-icon>
+        </v-badge>
+      </v-btn>
+    </nav>
   </div>
 </template>
 
@@ -37,15 +51,13 @@ export default {
     isLoggedIn() {
       return this.$store.state.user.isLoggedIn;
     },
-    userName() {
-      return this.$store.state.user.name
-        ? `, ${this.$store.state.user.name}`
-        : "!";
+    displayName() {
+      return this.$store.state.user.name || "there";
     }
   },
   methods: {
     signOut() {
-      this.$store.commit("userData", { isLoggedIn: false });
+      this.$store.commit("userData", { isLoggedIn: false, name: "Customer", shipping: [] });
       if (this.$route.name === "CheckOut") {
         this.$router.push("/");
       }
@@ -53,3 +65,46 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.topbar {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.topbar__brand {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #111827;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.topbar__nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.topbar__greeting {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-right: 8px;
+}
+
+.topbar__nav-btn {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.topbar__cart-btn {
+  margin-left: 4px;
+}
+</style>
