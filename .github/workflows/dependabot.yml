@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+    groups:
+      production-deps:
+        dependency-type: "production"
+        patterns:
+          - "*"
+
+      dev-deps:
+        dependency-type: "development"
+        patterns:
+          - "*"
